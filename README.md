@@ -1,4 +1,4 @@
-# SegmentationWithAttention
+# Medical Image Segmentation with Guided Attention
 This repository contains the main framework to perform the segmentation.
 
 ## Important
