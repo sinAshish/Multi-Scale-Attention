@@ -742,7 +742,6 @@ class DAF_stack(nn.Module):
             nn.Conv2d(256, 64, kernel_size=1), nn.BatchNorm2d(64), nn.PReLU()
         )
 
-        # DANet Shit starts
         inter_channels = 64
         out_channels=64
 
@@ -787,7 +786,8 @@ class DAF_stack(nn.Module):
         self.conv_sem_1_2 = nn.Conv2d(128, 64, kernel_size=3, padding=1)
         self.conv_sem_1_3 = nn.Conv2d(128, 64, kernel_size=3, padding=1)
         self.conv_sem_1_4 = nn.Conv2d(128, 64, kernel_size=3, padding=1)
-
+	
+	#Dual Attention mechanism 
         self.pam_attention_1_2=nn.Sequential(
 			nn.Conv2d(128,64,kernel_size=3,padding=1),nn.BatchNorm2d(64),nn.PReLU(),
 			PAM_Module(64),
@@ -885,8 +885,6 @@ class DAF_stack(nn.Module):
 		)
         
 
-        ## DANet shit over
-
         self.fuse1 = nn.Sequential(
             nn.Conv2d(256, 64, kernel_size=3, padding=1), nn.BatchNorm2d(64), nn.PReLU(),
             nn.Conv2d(64, 64, kernel_size=3, padding=1), nn.BatchNorm2d(64), nn.PReLU(),
@@ -897,25 +895,25 @@ class DAF_stack(nn.Module):
             nn.Conv2d(128, 64, kernel_size=3, padding=1), nn.BatchNorm2d(64), nn.PReLU(),
             nn.Conv2d(64, 64, kernel_size=3, padding=1), nn.BatchNorm2d(64), nn.PReLU(),
             nn.Conv2d(64, 64, kernel_size=1), nn.Softmax2d()
-            #PAM_Module(64),nn.Softmax2d()
+            
         )
         self.attention3 = nn.Sequential(
             nn.Conv2d(128, 64, kernel_size=3, padding=1), nn.BatchNorm2d(64), nn.PReLU(),
             nn.Conv2d(64, 64, kernel_size=3, padding=1), nn.BatchNorm2d(64), nn.PReLU(),
             nn.Conv2d(64, 64, kernel_size=1), nn.Softmax2d()
-            #PAM_Module(64),nn.Softmax2d()
+            
         )
         self.attention2 = nn.Sequential(
             nn.Conv2d(128, 64, kernel_size=3, padding=1), nn.BatchNorm2d(64), nn.PReLU(),
             nn.Conv2d(64, 64, kernel_size=3, padding=1), nn.BatchNorm2d(64), nn.PReLU(),
             nn.Conv2d(64, 64, kernel_size=1), nn.Softmax2d()
-            #PAM_Module(64),nn.Softmax2d()
+            
         )
         self.attention1 = nn.Sequential(
             nn.Conv2d(128, 64, kernel_size=3, padding=1), nn.BatchNorm2d(64), nn.PReLU(),
             nn.Conv2d(64, 64, kernel_size=3, padding=1), nn.BatchNorm2d(64), nn.PReLU(),
             nn.Conv2d(64, 64, kernel_size=1), nn.Softmax2d()
-            #PAM_Module(64),nn.Softmax2d()
+            
         )
 
         self.refine4 = nn.Sequential(
