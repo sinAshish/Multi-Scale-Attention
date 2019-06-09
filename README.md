@@ -18,6 +18,7 @@ Specifically, the convention we follow for the names is as follows:
 - Subj_Xslice_Y.png where X indicates the subject number (or ID) and Y is the slice number within the whole volume. (Do not use 0 padding for numbers, i.e., the first slice should be 1 and not 01)
 - The corresponding mask must be named in the same way as the image.
 
+An example of a sample image is added in [dataset](https://github.com/sinAshish/Multi-Scale-Attention/tree/master/DataSetSample/train)
 ## Running the code
 To run the code you simply need to use the following script:
 
