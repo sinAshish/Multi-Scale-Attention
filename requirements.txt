@@ -1,6 +1,5 @@
-pytorch
-torchvision
-scikit-image
-scipy
-numpy
-tqdm
+dill
+scikit-image 
+MedPy
+nibabel
+Pillow
