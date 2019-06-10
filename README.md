@@ -1,15 +1,10 @@
 # Medical Image Segmentation with Guided Attention
-This repository contains the code of our paper: 'Multi-scale guided attention for medical image segmentation' [link](https://arxiv.org/pdf/1906.02849.pdf)
+This repository contains the code of our paper: '[Multi-scale guided attention for medical image segmentation]'(https://arxiv.org/pdf/1906.02849.pdf)
 
 ## Requirements
 
 - The code has been written in Python (3.6) and requires [pyTorch](https://pytorch.org) (version 1.1.0)
-- You should also have installed:
--- [Pillow](https://pillow.readthedocs.io/en/stable/index.html)
--- [nibabel](https://nipy.org/nibabel/)
--- [medpy](https://pypi.org/project/MedPy/)
--- [skimage](https://scikit-image.org)
--- [dill](https://pypi.org/project/dill/)
+- Install the dependencies using `pip install -r requirements.txt`
 
 ## Preparing your data
 You have to split your data into three folders: train/val/test. Each folder will contain two sub-folders: Img and GT, which contain the png files for the images and their corresponding ground truths. The naming of these images is important, as the code to save the results temporarily to compute the 3D DSC, for example, is sensitive to their names.
