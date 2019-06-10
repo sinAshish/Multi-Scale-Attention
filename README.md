@@ -23,6 +23,9 @@ To run the code you simply need to use the following script:
 CUDA_VISIBLE_DEVICES=0 python main.py
 ```
 
+[Pretrained Model for Stacked DANet](https://drive.google.com/file/d/1NfIGMJr7Zrip9kYMOqBsEwuoGdRAM6jb/view?usp=sharing)
+
+
 If you use this code for your research, please consider citing our paper:
 
 - A. Sinha and J. Dolz. "['Multi-scale guided attention for medical image segmentation'"](https://arxiv.org/pdf/1906.02849.pdf) Arxiv 2019.
