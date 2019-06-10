@@ -1,5 +1,5 @@
 # Medical Image Segmentation with Guided Attention
-This repository contains the code of our paper: '[Multi-scale guided attention for medical image segmentation]'(https://arxiv.org/pdf/1906.02849.pdf)
+This repository contains the code of our paper:  "['Multi-scale guided attention for medical image segmentation']" (https://arxiv.org/pdf/1906.02849.pdf)
 
 ## Requirements
 
