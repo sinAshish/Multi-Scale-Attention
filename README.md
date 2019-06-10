@@ -1,5 +1,5 @@
 # Medical Image Segmentation with Guided Attention
-This repository contains the code of our paper: 'Multi-scale guided attention for medical image segmentation' Link coming soon.
+This repository contains the code of our paper: 'Multi-scale guided attention for medical image segmentation' [link](https://arxiv.org/pdf/1906.02849.pdf)
 
 ## Requirements
 
@@ -28,4 +28,4 @@ CUDA_VISIBLE_DEVICES=0 python main.py
 
 If you use this code for your research, please consider citing our paper:
 
-- A. Sinha and J. Dolz. "['Multi-scale guided attention for medical image segmentation'"]() Arxiv 2019.
+- A. Sinha and J. Dolz. "['Multi-scale guided attention for medical image segmentation'"](https://arxiv.org/pdf/1906.02849.pdf) Arxiv 2019.
