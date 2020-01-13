@@ -33,13 +33,24 @@ Specifically, the convention we follow for the names is as follows:
 An example of a sample image is added in [dataset](https://github.com/sinAshish/Multi-Scale-Attention/tree/master/DataSetSample/train)
 
 ## Running the code
+
+Note: Set the data path appropriately in `src/main.py` before running the code.
+
 To run the code you simply need to use the following script:
 
 ```
-CUDA_VISIBLE_DEVICES=0 python main.py
+bash train.sh
 ```
 
 
 If you use this code for your research, please consider citing our paper:
 
-- A. Sinha and J. Dolz. "['Multi-scale guided attention for medical image segmentation'"](https://arxiv.org/pdf/1906.02849.pdf) Arxiv 2019.
+```
+@online{sinha2019msga,
+Author = {Ashish Sinha and Jose Dolz},
+Title = {Multi-scale guided attention for medical image segmentation},
+Year = {2019},
+Eprint = {1906.02849},
+Eprinttype = {arXiv},
+}
+```
