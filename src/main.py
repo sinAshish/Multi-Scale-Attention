@@ -1,31 +1,29 @@
-import torch
-import numpy as np
-import torch.nn as nn
 import os
+import numpy as np
+
+import torch
+import torch.nn as nn
 from torch.utils.data import DataLoader
 from torchvision import transforms
 from torch.optim import Adam
-from progressBar import printProgressBar
 
-import medicalDataLoader
-
-from utils import evaluate3D,\
-    reconstruct3D,\
-    saveImages_for3D,\
-    getOneHotSegmentation,\
-    predToSegmentation,\
-    getTargetSegmentation,\
-    computeDiceOneHot,\
-    DicesToDice,\
-    inference,\
-    to_var
-    
 import dill
 import argparse
-from my_stacked_danet import DAF_stack
-
-
-
+from data import medicalDataLoader
+from models.my_stacked_danet import DAF_stack
+from common.progressBar import printProgressBar
+from common.utils import (evaluate3D,
+                          reconstruct3D,
+                          saveImages_for3D,
+                          getOneHotSegmentation,
+                          predToSegmentation,
+                          getTargetSegmentation,
+                          computeDiceOneHot,
+                          DicesToDice,
+                          inference,
+                          to_var
+                          )
+    
 def weights_init(m):
     if type(m) == nn.Conv2d or type(m) == nn.ConvTranspose2d:
         nn.init.xavier_normal(m.weight.data)
@@ -44,7 +42,7 @@ def runTraining(args):
     lr = args.lr
 
     epoch = args.epochs
-    root_dir = './DataSet_Challenge/Val_1'
+    root_dir = args.root
     model_dir = 'model'
     
     print(' Dataset: {} '.format(root_dir))
@@ -66,7 +64,7 @@ def runTraining(args):
 
     train_loader = DataLoader(train_set,
                               batch_size=batch_size,
-                              num_workers=5,
+                              num_workers=args.num_workers,
                               shuffle=True)
 
     val_set = medicalDataLoader.MedicalImageDataset('val',
@@ -77,12 +75,12 @@ def runTraining(args):
 
     val_loader = DataLoader(val_set,
                             batch_size=batch_size_val,
-                            num_workers=5,
+                            num_workers=args.num_workers,
                             shuffle=False)
                                                    
     val_loader_save_images = DataLoader(val_set,
                                         batch_size=batch_size_val_save,
-                                        num_workers=4,
+                                        num_workers= args.num_workers,
                                         shuffle=False)
 
                                                                     
@@ -182,7 +180,10 @@ def runTraining(args):
             outputs2_2, \
             outputs3_2 = net(MRI)
 
-            segmentation_prediction = (outputs0 + outputs1 + outputs2 + outputs3 + outputs0_2 + outputs1_2 + outputs2_2 + outputs3_2) / 8
+            segmentation_prediction = (
+                outputs0 + outputs1 + outputs2 + outputs3 +\
+                outputs0_2 + outputs1_2 + outputs2_2 + outputs3_2
+                ) / 8
             predClass_y = softMax(segmentation_prediction)
 
             Segmentation_planes = getOneHotSegmentation(Segmentation)
@@ -216,9 +217,9 @@ def runTraining(args):
             lossRec6 = mseLoss(inp_enc6, out_enc6)
             lossRec7 = mseLoss(inp_enc7, out_enc7)
 
-            lossG = loss0 + loss1 + loss2 + loss3 + loss0_2 + loss1_2 + loss2_2 + loss3_2 + 0.25 * (
-            lossSemantic1 + lossSemantic2 + lossSemantic3 + lossSemantic4) \
-            + 0.1 * (lossRec0 + lossRec1 + lossRec2 + lossRec3 + lossRec4 + lossRec5 + lossRec6 + lossRec7)  # CE_lossG
+            lossG = (loss0 + loss1 + loss2 + loss3 + loss0_2 + loss1_2 + loss2_2 + loss3_2)\
+                + 0.25 * (lossSemantic1 + lossSemantic2 + lossSemantic3 + lossSemantic4) \
+                + 0.1 * (lossRec0 + lossRec1 + lossRec2 + lossRec3 + lossRec4 + lossRec5 + lossRec6 + lossRec7)  # CE_lossG
 
             # Compute the DSC
             DicesN, DicesB, DicesW, DicesT, DicesZ = Dice_loss(segmentation_prediction_ones, Segmentation_planes)
@@ -251,7 +252,7 @@ def runTraining(args):
        
         # Save statistics
         modelName = args.modelName
-        directory = 'Results/Statistics/' + modelName
+        directory = args.save_dir + modelName
         
         Losses.append(np.mean(lossVal))
         
@@ -336,9 +337,12 @@ def runTraining(args):
 
 if __name__ == '__main__':
     parser=argparse.ArgumentParser()
-    parser.add_argument('--modelName',default='MS-Dual-Guided',type=str)
-    parser.add_argument('--batch_size',default=8,type=int)
-    parser.add_argument('--epochs',default=500,type=int)
-    parser.add_argument('--lr',default=0.001,type=float)
+    parser.add_argument('--modelName',default = 'MS-Dual-Guided',type=str)
+    parser.add_argument('--root', default = '../DataSet/', type = str)
+    parser.add_argument('--num_workers', default = 4, type = int)
+    parser.add_argument('--save_dir', default = 'Results/Statistics/', type =str)
+    parser.add_argument('--batch_size',default = 8,type = int)
+    parser.add_argument('--epochs',default = 500,type = int)
+    parser.add_argument('--lr',default = 0.001,type = float)
     args=parser.parse_args()
     runTraining(args)
