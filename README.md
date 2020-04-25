@@ -46,11 +46,10 @@ bash train.sh
 If you use this code for your research, please consider citing our paper:
 
 ```
-@online{sinha2019msga,
-Author = {Ashish Sinha and Jose Dolz},
-Title = {Multi-scale guided attention for medical image segmentation},
-Year = {2019},
-Eprint = {1906.02849},
-Eprinttype = {arXiv},
+@article{sinha2020multi,
+  title={Multi-scale self-guided attention for medical image segmentation.},
+  author={Sinha, A and Dolz, J},
+  journal={IEEE Journal of Biomedical and Health Informatics},
+  year={2020}
 }
 ```
