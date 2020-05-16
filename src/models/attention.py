@@ -163,7 +163,7 @@ class PAM_CAM_Layer(nn.Module):
         returns the attention map
     """
     def __init__(self, in_ch, use_pam = True):
-        super(PAM_CAM_Layer).__init__()
+        super(PAM_CAM_Layer, self).__init__()
         
         self.attn = nn.Sequential(
             nn.Conv2d(in_ch * 2, in_ch, kernel_size=3, padding=1),
